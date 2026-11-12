@@ -7,4 +7,3 @@ export const categoryColors: Record<string, string> = {
   Business: "bg-violet-50 text-violet-800 ring-violet-200",
   Culture: "bg-fuchsia-50 text-fuchsia-800 ring-fuchsia-200",
 };
- 
