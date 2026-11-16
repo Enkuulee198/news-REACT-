@@ -43,7 +43,7 @@ export const ArticleCard = (props: ArticleCardtype) => {
           alt={imageAlt}
         />
         <div
-          className={`absolute top-4 left-4 w-[62px] h-[27px] text-[10px] flex justify-center items-center text-[#065F46] rounded-[100px] bg-[#ECFDF5] font-['Inter'] font-bold text-[10px] leading-[145%] tracking-[0%] ${categoryColor}`}
+          className={`absolute top-4 left-4 w-[calc(100%+10px)] max-w-[80px]  h-[27px] text-[10px] flex justify-center items-center text-[#065F46] rounded-[100px] bg-[#ECFDF5] uppercase font-['Inter'] font-bold text-[10px] leading-[145%] tracking-[0%] ${categoryColor}`}
         >
           {category}
         </div>
@@ -57,14 +57,18 @@ export const ArticleCard = (props: ArticleCardtype) => {
         </div>
         <div className="w-[326px] h-[1px] bg-[#E2E2DA] mt-[44px]"></div>
         <div className="flex mt-[18.5px]">
-          <div className={`w-10 h-10 rounded-[50%] flex justify-center items-center bg-[#ECFDF5] font-['Inter'] font-bold text-[12px] leading-[145%] tracking-[0%] ${categoryColor}`}>
+          <div
+            className={`w-10 h-10 rounded-[50%] flex justify-center items-center bg-[#ECFDF5] font-['Inter'] font-bold text-[12px] leading-[145%] tracking-[0%] ${categoryColor}`}
+          >
             {author
               .split(" ")
               .map((word) => word[0].toUpperCase())
               .join("")}
           </div>
           <div className="ml-[12px]">
-            <div className={`font-['Inter'] font-bold text-xs leading-[145%] tracking-[0%]`}>
+            <div
+              className={`font-['Inter'] font-bold text-xs leading-[145%] tracking-[0%]`}
+            >
               {author}
             </div>
             <div className="font-['Inter'] font-normal text-[11px] leading-[145%] tracking-[0%]">

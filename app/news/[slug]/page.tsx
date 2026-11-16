@@ -5,6 +5,24 @@ import { notFound } from "next/navigation";
 export const instant = false;
 import Link from "next/link";
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const article = data.find((article) => article.slug === slug);
+  if (!article) notFound();
+
+  return {
+    title: article.title,
+    description: article.description,
+    openGraph: {
+      type: "article",
+      siteName: "The Daily",
+      title: article.title,
+      description: article.description,
+      images: [{ url: article.image, alt: article.imageAlt }],
+    },
+  };
+}
+
 const WORD = "font-['Inter'] font-normal  leading-[145%] tracking-[0%]";
 
 type Props = {
@@ -17,19 +35,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { slug } = await params;
 
-  const article = data.find((article) => article.slug === slug);
+//   const article = data.find((article) => article.slug === slug);
 
-  if (!article) notFound();
+//   if (!article) notFound();
 
-
-
-  return {};
-}
-
-
+//   return {};
+// }
 
 const ArticleDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
@@ -40,27 +54,34 @@ const ArticleDetailPage = async ({ params }: Props) => {
     notFound();
   }
   const Recomended = data
- .filter (
-  (article) => (
-    article.category === foundArtickle.category && article.slug !== foundArtickle.slug
-   ) 
-  ) 
-  .slice(0, 2);
+    .filter(
+      (article) =>
+        article.category === foundArtickle.category &&
+        article.slug !== foundArtickle.slug,
+    )
+    .slice(0, 2);
 
   return (
-    <div className="Dinamic page pl-[128px] pr-[128px] ">
+    <div className="Dinamic page pl-[128px] pr-[128px] max-w-7xl w-full mx-auto">
       <header className="pl-[80px]">
-        <div className="ml-[-80px] mt-[24px] gap-[12px] flex items-center">
-          <Link href="/" className=" text-[#22241F] font-['Inter'] hover:text-[#C44724] transition-colors duration-300 font-bold text-[12px] leading-[145%] tracking-[0%]">
-            ← All stories
-          </Link>
-          <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
-            /
+        <div className="flex pt-[24px] justify-between">
+          <div className="flex items-center gap-[12px]">
+            <Link
+              href="/"
+              className="ml-[-80px] hover:text-[#C44724] flex items-center"
+            >
+              ← All stories
+            </Link>
+
+            <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
+              /
+            </div>
+
+            <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
+              {foundArtickle.category}
+            </div>
           </div>
-          <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
-            World
-          </div>
-          <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
+          <div className="text-[#65675F] font-['Inter'] font-normal mt-[5px] text-[12px] leading-[145%] tracking-[0%]">
             THE DAILY EDIT
           </div>
         </div>
@@ -117,7 +138,7 @@ const ArticleDetailPage = async ({ params }: Props) => {
       </header>
       <main>
         <img
-          className="w-full mt-[40px] h-[514.78px]"
+          className="mx-auto mt-[40px] w-[1184px] flex justify-center h-[514.78px]"
           src={foundArtickle.image}
           alt={foundArtickle.imageAlt}
         />
@@ -127,11 +148,27 @@ const ArticleDetailPage = async ({ params }: Props) => {
         </div>
         <div className="The story w-[full] h-[854px] flex items-center flex-col">
           <div className="aimaar ih text  text-[#44403C] bg-[#FFFFFF] mt-[56px] pl-[40px] pr-[40px] max-w-[768px] h-[596px] border border-[1px] rounded-[16px] border-[#E2E2DA]">
-            <div className="text-[#C44724] font-['Inter'] font-bold text-[10px] leading-[145%] tracking-[0%] mt-[40px]">
-              ━━ THE STORY
+            <div className="flex gap-[8px]">
+              <div className="bg-[#C44724] w-[35px] h-[5px] rounded-[999px] mt-[47px]"></div>
+              <div className="text-[#65675F] font-['Inter'] font-bold text-[13px] leading-[145%] tracking-[0%] mt-[40px]">
+                THE STORY
+              </div>
             </div>
             <div className="text-[#44403C] font-['Noto_Serif'] font-normal text-[20px] leading-[190%] mt-[24px]">
-              {foundArtickle.content}
+              {foundArtickle.content.map((paragraph, index) => (
+                <p key={index} className="mb-[32px]">
+                  {index === 0 ? (
+                    <>
+                      <span className="float-left text-[#C44724] text-[44px] leading-[0.9] mr-[8px] mt-[4px]">
+                        {paragraph[0]}
+                      </span>
+                      {paragraph.slice(1)}
+                    </>
+                  ) : (
+                    paragraph
+                  )}
+                </p>
+              ))}
             </div>
             <div className="text-[#C44724] font-['Inter'] font-bold text-[16px] leading-[145%] tracking-[0%] mt-[24px] text-center">
               • • •
@@ -149,17 +186,24 @@ const ArticleDetailPage = async ({ params }: Props) => {
                 Your next good read is just around the corner.
               </div>
             </div>
-            <button className="text-[#FFFFFF] bg-[#22241F] w-[98px] h-[37px] rounded-[100px] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
+            <Link
+              href="/"
+              className="hover:bg-[#C44724] transition-colors duration-300 flex justify-center items-center text-[#FFFFFF] bg-[#22241F] w-[98px] h-[37px] rounded-[100px] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]"
+            >
               All stories ↗
-            </button>
+            </Link>
           </div>
         </div>
       </main>
       <section>
-        <div className="text-[#C44724] font-['Inter'] font-bold text-[10px] leading-[145%] tracking-[0%]">KEEP YOUR CURIOSITY GOING</div>
-        <div className="text-[#22241F] font-['Inter'] font-bold text-[30px] leading-[145%] tracking-[0%]">More to discover.</div>
+        <div className="text-[#C44724] font-['Inter'] font-bold text-[10px] leading-[145%] tracking-[0%]">
+          KEEP YOUR CURIOSITY GOING
+        </div>
+        <div className="text-[#22241F] font-['Inter'] font-bold text-[30px] leading-[145%] tracking-[0%]">
+          More to discover.
+        </div>
         <div className="Small page grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {Recomended.map((article)=> (
+          {Recomended.map((article) => (
             <ArticleCard key={article.id} {...article} />
           ))}
         </div>
@@ -169,7 +213,4 @@ const ArticleDetailPage = async ({ params }: Props) => {
 };
 
 export default ArticleDetailPage;
-
-
-
 

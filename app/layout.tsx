@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,14 +29,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="w-full h-[1px] bg-[#E2E2DA] mt-[64px]"></div>
           <div className="mx-auto mt-[36px] flex w-[90%] max-w-[1184px] items-center justify-between">
             <div>
-              <div className="text-[#22241F] font-['Inter'] font-bold text-[30px] leading-[145%] tracking-[0%]">
-                the daily ▧
+              <div className="flex gap-[8px]">
+                <div className="text-[#22241F] font-['Inter'] font-bold text-[35px] leading-[145%] tracking-[0%]">
+                  the daily
+                </div>
+                <div className="text-[#C44724] font-['Inter'] font-bold text-[35px] leading-[145%] tracking-[0%]">
+                   ▧
+                </div>
               </div>
               <div className="text-[#65675F] font-['Inter'] font-normal text-[12px] leading-[145%] mb-[36px] tracking-[0%]">
                 A fresh perspective. Every day.
               </div>
             </div>
-            <a href="#" className="text-[#22241F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]">
+            <a
+              href="#"
+              className="text-[#22241F] font-['Inter'] font-normal text-[12px] leading-[145%] tracking-[0%]"
+            >
               Back to top ↑
             </a>
           </div>
