@@ -93,7 +93,7 @@ const ArticleFeed = () => {
           <div className="text-[#C44724] font-['Inter'] font-bold text-[10px] leading-[145%] tracking-normal">
             STAY CURIOUS
           </div>
-          <div className="flex justify-between ">
+          <div className="flex justify-between flex-wrap ">
             <div className="flex items-end gap-[2px]">
               <div className="text-[#22241F] font-['Inter'] font-bold text-[36px] leading-[145%] tracking-normal">
                 The latest stories
@@ -106,7 +106,7 @@ const ArticleFeed = () => {
           </div>
           <div className="w-full mt-[24px] mx-auto h-[1px] bg-[#E2E2DA]"></div>
 
-          <div className="mt-[26px] flex gap-[28px]">
+          <div className="mt-[26px] flex flex-wrap gap-[28px]">
             {categories.map((item) => (
               <button
                 key={item}
@@ -129,7 +129,7 @@ const ArticleFeed = () => {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[28px] pt-[20px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-[28px] pt-[20px]">
           {filtered.map((article, index) => (
             <ArticleCard key={index} {...article} />
           ))}

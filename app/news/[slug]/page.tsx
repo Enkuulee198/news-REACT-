@@ -62,7 +62,7 @@ const ArticleDetailPage = async ({ params }: Props) => {
     .slice(0, 2);
 
   return (
-    <div className="Dinamic page pl-[128px] pr-[128px] max-w-7xl w-full mx-auto">
+    <div className="Dinamic page flex flex-col flex-wrap max-w-7xl w-full mx-auto">
       <header className="pl-[80px]">
         <div className="flex pt-[24px] justify-between">
           <div className="flex items-center gap-[12px]">
@@ -177,7 +177,7 @@ const ArticleDetailPage = async ({ params }: Props) => {
           <div className="text-[#65675F] font-['Inter'] font-normal text-[11px] leading-[145%] tracking-[0%] mt-[16px] text-center">
             Fictional sample story · The Daily learning edition
           </div>
-          <div className="w-[694px] h-[98px] mt-[16px] justify-between flex bg-[#FFF7ED] rounded-[16px]  items-center p-[24px]">
+          <div className="w-full max-w-[694px] min-h-[98px] mt-[16px] justify-between flex bg-[#FFF7ED] rounded-[16px] items-center p-[24px]">
             <div className="">
               <div className="text-[#22241F] font-['Inter'] font-semibold text-[18px] leading-[145%] tracking-[0%]">
                 A little more curiosity?
@@ -202,7 +202,7 @@ const ArticleDetailPage = async ({ params }: Props) => {
         <div className="text-[#22241F] font-['Inter'] font-bold text-[30px] leading-[145%] tracking-[0%]">
           More to discover.
         </div>
-        <div className="Small page grid grid-cols-1 gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="Small page grid grid-cols-1 gap-x-7 gap-y-10 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
           {Recomended.map((article) => (
             <ArticleCard key={article.id} {...article} />
           ))}
